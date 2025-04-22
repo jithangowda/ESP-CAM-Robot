@@ -81,6 +81,7 @@ void startCamera()
   s->set_brightness(s, 1);  // Increase brightness slightly
   s->set_saturation(s, -2); // Reduce saturation slightly
 }
+
 // HTTP server setup
 WiFiServer server(80);
 
@@ -142,8 +143,12 @@ void handleClient()
       // Break if the client disconnects
       if (!client.connected())
       {
+        Serial.println("Client disconnected from stream");
         break;
       }
+
+      // Add a small delay to avoid overwhelming the client
+      delay(100);
     }
   }
   else
