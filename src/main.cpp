@@ -4,21 +4,17 @@
 #include "esp_http_server.h"
 #include "secrets.h"
 
-// UDP Server Discovery
 WiFiUDP udp;
 String serverIP;
 bool serverFound = false;
 bool messageSent = false;
 
-// Static Constants
-static constexpr int LED_PIN = 4;          // GPIO pin for LED (AI-THINKER uses GPIO 4 for flash)
+static constexpr int LED_PIN = 4;
 static constexpr int udpListenPort = 4210; // Port to listen for server broadcast
 static constexpr int udpSendPort = 4211;   // Port to send messages to the server
 
-// HTTP Streaming Server
 httpd_handle_t stream_httpd = NULL;
 
-// Simple HTML Page for Streaming
 const char index_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html>
@@ -32,7 +28,6 @@ const char index_html[] PROGMEM = R"rawliteral(
 </html>
 )rawliteral";
 
-// HTTP Handlers
 static esp_err_t index_handler(httpd_req_t *req)
 {
   httpd_resp_set_type(req, "text/html");
@@ -233,8 +228,8 @@ void setup()
   config.pin_pwdn = 32;
   config.pin_reset = -1;
   config.xclk_freq_hz = 20000000;
-  config.frame_size = FRAMESIZE_HVGA;   // Set resolution to HVGA (480x320)
-  config.pixel_format = PIXFORMAT_JPEG; // Use JPEG format for streaming
+  config.frame_size = FRAMESIZE_HVGA;   //  HVGA (480x320)
+  config.pixel_format = PIXFORMAT_JPEG; // Use JPEG format
   config.grab_mode = CAMERA_GRAB_WHEN_EMPTY;
   config.fb_location = CAMERA_FB_IN_PSRAM;
   config.jpeg_quality = 10;
@@ -252,20 +247,15 @@ void setup()
   s->set_vflip(s, 0);   // Disable vertical flip
   s->set_hmirror(s, 0); // Disable horizontal mirror
 
-  // Connect to Wi-Fi
   connectToWiFi();
 
-  // Blink LED three times to indicate successful connection
   blinkLED(3);
 
-  // Turn off the LED after blinking
   digitalWrite(LED_PIN, LOW);
 
-  // Start listening for UDP packets
   udp.begin(udpListenPort);
   Serial.println("Listening for server broadcast on UDP...");
 
-  // Start the camera server
   startCameraServer();
 
   Serial.print("Camera Ready! Use 'http://");
@@ -275,7 +265,7 @@ void setup()
 
 void loop()
 {
-  // Check for server discovery
+
   if (!serverFound)
   {
     char incomingPacket[255];
@@ -297,14 +287,12 @@ void loop()
           Serial.print("✅ Server IP: ");
           Serial.println(serverIP);
 
-          // Optional: Blink LED again if server is discovered
           blinkLED(3);
         }
       }
     }
   }
 
-  // Send connected message to the server
   sendConnectedMessage();
 
   delay(100);
