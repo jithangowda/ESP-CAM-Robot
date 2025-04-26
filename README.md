@@ -20,7 +20,27 @@ This repository contains the PlatformIO project for the **ESP32-CAM Development 
     - After installing PlatformIO, open VSCode and click the **PlatformIO** icon in the left sidebar.
     - Click **Open Project** and select the folder where you cloned this repo.
 
-5. **Build and Upload** using PlatformIO interface:
+5. **Create a `secrets.h` file**:
+    - Inside the `include/` directory, create a new file named `secrets.h`.
+    - Add the following content:
+    ```cpp
+    #ifndef SECRETS_H
+    #define SECRETS_H
+
+    // Primary Wi-Fi Credentials
+    const char *ssid1 = "***********"; 
+    const char *password1 = "***********";
+
+    // Secondary Wi-Fi Credentials
+    const char *ssid2 = "***********";
+    const char *password2 = "***********";
+
+    #endif
+    ```
+    - Fill in your primary Wi-Fi SSID and password.
+    - If you don't have a secondary Wi-Fi network, you can leave it as it is.
+
+6. **Build and Upload** using PlatformIO interface:
     - In the PlatformIO toolbar (at the bottom), click **Build** to compile the code.
     - Once the build is successful, click **Upload** to flash the code to your ESP32-CAM.
 
@@ -29,5 +49,3 @@ This repository contains the PlatformIO project for the **ESP32-CAM Development 
 - ESP32-CAM Development Board
 - Visual Studio Code
 - PlatformIO Extension
-
----
