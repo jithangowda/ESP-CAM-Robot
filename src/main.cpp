@@ -251,7 +251,7 @@ void setup()
 
   blinkLED(3);
 
-  digitalWrite(LED_PIN, LOW);
+  digitalWrite(LED_PIN, HIGH);
 
   udp.begin(udpListenPort);
   Serial.println("Listening for server broadcast on UDP...");
@@ -288,6 +288,7 @@ void loop()
           Serial.println(serverIP);
 
           blinkLED(3);
+          digitalWrite(LED_PIN, HIGH);
         }
       }
     }
