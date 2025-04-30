@@ -244,8 +244,8 @@ void setup()
   }
 
   sensor_t *s = esp_camera_sensor_get();
-  s->set_vflip(s, 0);   // Disable vertical flip
-  s->set_hmirror(s, 0); // Disable horizontal mirror
+  s->set_vflip(s, 1);   // Disable vertical flip
+  s->set_hmirror(s, 1); // Disable horizontal mirror
 
   connectToWiFi();
 
