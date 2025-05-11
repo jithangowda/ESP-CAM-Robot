@@ -229,7 +229,7 @@ void setup()
   config.pin_reset = -1;
   config.xclk_freq_hz = 20000000;
   config.frame_size = FRAMESIZE_HVGA;   //  HVGA (480x320)
-  config.pixel_format = PIXFORMAT_JPEG; // Use JPEG format
+  config.pixel_format = PIXFORMAT_JPEG; 
   config.grab_mode = CAMERA_GRAB_WHEN_EMPTY;
   config.fb_location = CAMERA_FB_IN_PSRAM;
   config.jpeg_quality = 10;
